@@ -11,13 +11,14 @@ const handleApiCall = (req, res) => {
     })
     .catch(err => res.status(400).json('api unavailable'))
 }
-const handleImage = (req, res) => {
+const handleImage = (req, res, db) => {
     const { id } = req.body;
     db('users').where('id', '=', id)
     .increment('entries', 1)
     .returning('entries')
     .then(entries => {
         if(entries.length) {
+            console.log(entries[0])
             res.json(entries[0]);
         } else {
             res.status(400).json('not found')

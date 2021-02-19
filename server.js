@@ -12,12 +12,21 @@ const profile = require('./controllers/profile');
 const db = knex({
     client: 'pg',
     connection: {
-        connectionString: process.env.DATABASE_URL,
-        ssl: {
-            rejectUnauthorized: false
-          }
+        host: '127.0.0.1',
+        user: 'postgres',
+        password: 'admin',
+        database: 'smart-brain'
     }
 });
+// const db = knex({
+//     client: 'pg',
+//     connection: {
+//         connectionString: process.env.DATABASE_URL,
+//         ssl: {
+//             rejectUnauthorized: false
+//           }
+//     }
+// });
 
 const app = express();
 
@@ -40,6 +49,6 @@ app.post('/imageurl', (req, res) => {image.handleApiCall(req, res)})
 app.get('/profile/:id', (req, res)=> { profile.handleProfileGet(req, res, db)})
 
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 4502, () => {
     console.log('ping');
 })
